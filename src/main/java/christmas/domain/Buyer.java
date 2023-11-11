@@ -9,24 +9,25 @@ public class Buyer {
     private static final int MIN_DATE = 1;
     private static final int MAX_DATE = 31;
 
-    private static int visitDate;
+    private static int visitDay;
 
     public Buyer(String visitDate) {
         validateDate(visitDate);
-        this.visitDate = ConverterUtil.convertStringToInt(visitDate);
+        this.visitDay = ConverterUtil.convertStringToInt(visitDate);
     }
 
-    public DayOfWeek visitDayOfWeek(int visitDate) {
+    public DayOfWeek visitDayOfWeek() {
         DecemberCalendar decemberCalendar = new DecemberCalendar();
-        return decemberCalendar.getDayOfWeek(visitDate);
+        return decemberCalendar.getDayOfWeek(visitDay);
     }
 
     private void validateDate(String visitDate) {
+
         if (isNotDigit(visitDate)) {
-            throw new IllegalArgumentException(VISIT_DATE_INPUT_ERROR);
+            throw new IllegalArgumentException();
         }
         if (isNotDateNumber(visitDate)) {
-            throw new IllegalArgumentException(VISIT_DATE_INPUT_ERROR);
+            throw new IllegalArgumentException();
         }
     }
 
@@ -39,7 +40,7 @@ public class Buyer {
         return date < MIN_DATE || date > MAX_DATE;
     }
 
-    public int getVisitDate() {
-        return visitDate;
+    public int getVisitDay() {
+        return visitDay;
     }
 }
