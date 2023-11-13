@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DecemberCalendar {
+    private static final int CHRISTMAS_DAY = 25;
     private static final int DECEMBER_START_DAY = 1;
     private static final int DECEMBER_END_DAY = 31;
     private static final int NUMBER_OF_WEEKS = 7;
@@ -29,6 +30,10 @@ public class DecemberCalendar {
         return DayOfWeek.values()[nextDayIndex];
     }
 
+    public boolean isSpecialDay(int visitDay){
+        DayOfWeek visitDayofWeek = getDayOfWeek(visitDay);
+        return visitDayofWeek == DayOfWeek.SUNDAY || visitDay == CHRISTMAS_DAY;
+    }
     public DayOfWeek getDayOfWeek(int day) {
         return daysOfWeeks.get(day - 1);
     }
