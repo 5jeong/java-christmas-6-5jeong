@@ -4,36 +4,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DecemberCalendar {
+    private static final int DECEMBER_START_DAY = 1;
+    private static final int DECEMBER_END_DAY = 31;
+    private static final int NUMBER_OF_WEEKS = 7;
 
-    // 각 날짜에 해당하는 요일을 저장하는 리스트
     private List<DayOfWeek> daysOfWeeks;
 
-    // 생성자에서 12월의 달력 초기화
     public DecemberCalendar() {
         initDecemberCalendar();
     }
 
-    // 12월의 달력 초기화 메소드
     private void initDecemberCalendar() {
         daysOfWeeks = new ArrayList<>();
+        DayOfWeek startDay = DayOfWeek.FRIDAY;
 
-        // 12월 1일은 금요일부터 시작
-        DayOfWeek currentDay = DayOfWeek.FRIDAY;
-
-        for (int day = 1; day <= 31; day++) {
-            daysOfWeeks.add(currentDay);
-            // 다음 날로 이동
-            currentDay = getNextDayOfWeek(currentDay);
+        for (int day = DECEMBER_START_DAY; day <= DECEMBER_END_DAY; day++) {
+            daysOfWeeks.add(startDay);
+            startDay = getNextDayOfWeek(startDay);
         }
     }
 
-    // 다음 날 요일을 계산하는 메소드
     private DayOfWeek getNextDayOfWeek(DayOfWeek currentDay) {
-        int nextDayIndex = (currentDay.ordinal() + 1) % 7;
+        int nextDayIndex = (currentDay.ordinal() + 1) % NUMBER_OF_WEEKS;
         return DayOfWeek.values()[nextDayIndex];
     }
 
-    // 날짜에 해당하는 요일 반환 메소드
     public DayOfWeek getDayOfWeek(int day) {
         return daysOfWeeks.get(day - 1);
     }
