@@ -3,16 +3,13 @@ package christmas.domain;
 import java.util.stream.IntStream;
 
 public class PromotionEvent {
-    private static final int MINIMUM_SERVICE_AMOUNT = 120000;
-    private static final int MINIMUM_STAR_GIFT_AMOUNT = 5000;
-    private static final int MINIMUM_TREE_GIFT_AMOUNT = 10000;
-    private static final int MINIMUM_SANTA_GIFT_AMOUNT = 20000;
 
     private final ChristmasDiscount christmasDiscount;
     private final WeekdayDiscount weekdayDiscount;
     private final WeekendDiscount weekendDiscount;
     private final SpecialDiscount specialDiscount;
     private final ServiceEvent serviceEvent;
+    private final EventGift eventGift;
 
     private final Buyer buyer;
     private final Seller seller;
@@ -25,10 +22,7 @@ public class PromotionEvent {
         this.weekendDiscount = new WeekendDiscount();
         this.specialDiscount = new SpecialDiscount();
         this.serviceEvent = new ServiceEvent();
-    }
-
-    public boolean isServiceMenu() {
-        return seller.totalOrderAmount() >= MINIMUM_SERVICE_AMOUNT;
+        this.eventGift = new EventGift();
     }
 
     public int totalBenefitAmount() {
@@ -62,30 +56,14 @@ public class PromotionEvent {
     }
 
     public int applySpecialDiscount() {
-        return specialDiscount.calculateDiscount(buyer.getVisitDay(), buyer.visitDayOfWeek());
+        return specialDiscount.calculateDiscount(buyer.getVisitDay());
     }
 
     public int applyServiceBenefit() {
-        return serviceEvent.calculateBenefit(isServiceMenu());
+        return serviceEvent.calculateBenefit(seller.totalOrderAmount());
     }
-
 
     public String eventGift() {
-        int totalBenefitAmount = totalBenefitAmount();
-        return determineEventGift(totalBenefitAmount);
+        return eventGift.eventGift(totalBenefitAmount());
     }
-
-    private String determineEventGift(int totalBenefitAmount) {
-        if (totalBenefitAmount >= MINIMUM_SANTA_GIFT_AMOUNT) {
-            return "산타";
-        }
-        if (totalBenefitAmount >= MINIMUM_TREE_GIFT_AMOUNT) {
-            return "트리";
-        }
-        if (totalBenefitAmount >= MINIMUM_STAR_GIFT_AMOUNT) {
-            return "별";
-        }
-        return "없음";
-    }
-
 }
