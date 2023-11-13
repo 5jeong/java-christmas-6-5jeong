@@ -5,13 +5,14 @@ public class ChristmasDiscount {
     private static final int CHRISTMAS_DATE = 25;
     private static final int INITIAL_DISCOUNT = 1000;
     private static final int DAILY_DISCOUNT_INCREASE = 100;
+    private static final int NO_DISCOUNT_AMOUNT = 0;
 
 
     public int calculateDiscount(int visitDate) {
         if (isChristmasEvent(visitDate)) {
             return calculateChristmasDiscount(visitDate);
         }
-        return 0;
+        return NO_DISCOUNT_AMOUNT;
     }
 
     private boolean isChristmasEvent(int visitDay) {
