@@ -79,7 +79,7 @@ public class ChristmasController {
     }
 
     private void displayServiceMenuMessage(PromotionEvent promotionEvent) {
-        outputView.serviceMenuMessageOutput(promotionEvent.isServiceMenu());
+        outputView.serviceMenuMessageOutput(promotionEvent.totalBenefitAmount());
     }
 
     private void displayBenefitHistory(PromotionEvent promotionEvent) {
