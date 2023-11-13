@@ -1,5 +1,6 @@
 package christmas.view;
 
+import java.sql.SQLOutput;
 import java.text.DecimalFormat;
 import java.util.Map;
 
@@ -28,10 +29,10 @@ public class OutputView {
         System.out.println(String.format(OutputConstants.AMOUNT_MESSAGE, formatter.format(totalOrderAmount)));
     }
 
-    public void serviceMenuMessageOutput(boolean isServiceMenu) {
+    public void serviceMenuMessageOutput(int totalBenefitAmount) {
         System.out.println();
         System.out.println(OutputConstants.SERVICE_MENU_MESSAGE);
-        if (isServiceMenu) {
+        if (totalBenefitAmount != OutputConstants.ZERO) {
             System.out.println(OutputConstants.SERVICE_MENU);
             return;
         }
@@ -86,9 +87,9 @@ public class OutputView {
         if (totalBenefitAmount != OutputConstants.ZERO) {
             System.out.println(
                     String.format("-" + OutputConstants.AMOUNT_MESSAGE, formatter.format(totalBenefitAmount)));
-        } else {
-            System.out.println(String.format(OutputConstants.AMOUNT_MESSAGE, formatter.format(totalBenefitAmount)));
+            return;
         }
+        System.out.println(String.format(OutputConstants.AMOUNT_MESSAGE, OutputConstants.ZERO));
     }
 
     public void expectPaymentAmountOutput(int expectPaymentAmount) {
