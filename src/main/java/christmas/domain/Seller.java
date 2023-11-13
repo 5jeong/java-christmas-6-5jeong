@@ -1,13 +1,15 @@
 package christmas.domain;
 
 import christmas.util.ConverterUtil;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 public class Seller {
-
-    private static final String ORDER_ERROR_MESSAGE = "[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.";
     private static Map<String, Integer> orderHistory;
+    private static final int MINIMUM_ORDER_MENU_COUNT = 1;
+    private static final int MAXIMUM_ORDER_MENU_COUNT = 20;
+    private static final String DRINK_MENU_TYPE = "Drink";
 
     public Seller(String orderHistoty) {
         validateMenuAnoCount(orderHistoty);
@@ -23,11 +25,8 @@ public class Seller {
     }
 
     private void validateMenuExists(Map<String, Integer> orderResult) {
-        // 메뉴가 메뉴판에 없는 경우
-        for (String orderMenu : orderResult.keySet()) {
-            if (!MenuContains(orderMenu)) {
-                throw new IllegalArgumentException();
-            }
+        if (orderResult.keySet().stream().anyMatch(orderMenu -> !menuContains(orderMenu))) {
+            throw new IllegalArgumentException();
         }
     }
 
@@ -39,46 +38,32 @@ public class Seller {
     }
 
     private void validateDrinkOnly(Map<String, Integer> orderResult) {
-        // 음료만 주문했을 경우
-        for (String orderMenu : orderResult.keySet()) {
-            Menu menu = Menu.valueOf(orderMenu);
-            if (menu.getMenuType() != "Drink") {
-                return;
-            }
+        boolean drinksOnly = orderResult.keySet().stream()
+                .map(Menu::valueOf)
+                .allMatch(menu -> DRINK_MENU_TYPE.equals(menu.getMenuType()));
+        if (drinksOnly) {
+            throw new IllegalArgumentException();
         }
-        throw new IllegalArgumentException();
     }
 
     private void validateQuantity(Map<String, Integer> orderResult) {
-        // 메뉴의 개수가 1 이상 20 이하가 아닌 경우
-        for (String orderMenu : orderResult.keySet()) {
-            if (orderResult.get(orderMenu) < 1 || orderResult.get(orderMenu) > 20) {
+        orderResult.forEach((orderMenu, count) -> {
+            if (count < MINIMUM_ORDER_MENU_COUNT || count > MAXIMUM_ORDER_MENU_COUNT) {
                 throw new IllegalArgumentException();
             }
-        }
+        });
     }
 
-    private static boolean MenuContains(String orderMenu) {
-        for (Menu menu : Menu.values()) {
-            if (menu.name().equals(orderMenu)) {
-                return true;
-            }
-        }
-        return false;
+    private static boolean menuContains(String orderMenu) {
+        return Arrays.stream(Menu.values())
+                .anyMatch(menu -> menu.name().equals(orderMenu));
     }
 
     public int totalOrderAmount() {
-        int totalOrderAmount = 0;
-        for (String orderMenu : orderHistory.keySet()) {
-            totalOrderAmount += Menu.valueOf(orderMenu).getPrice() * orderHistory.get(orderMenu);
-        }
-        return totalOrderAmount;
+        return orderHistory.entrySet().stream()
+                .mapToInt(entry -> Menu.valueOf(entry.getKey()).getPrice() * entry.getValue())
+                .sum();
     }
-
-    public boolean isServiceMenu() {
-        return totalOrderAmount() >= 120000;
-    }
-
 
     public Map<String, Integer> getOrderHistory() {
         return orderHistory;
