@@ -9,7 +9,7 @@ public class EventGift {
     private static final String SANTA_GIFT = "산타";
     private static final String NO_GIFT = "없음";
 
-    public String eventGift(int totalBenefitAmount) {
+    public String getEventGift(int totalBenefitAmount) {
         if(isEventGift(totalBenefitAmount)){
             return determineEventGift(totalBenefitAmount);
         }
