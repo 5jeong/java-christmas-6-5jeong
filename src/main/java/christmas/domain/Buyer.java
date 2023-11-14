@@ -1,6 +1,7 @@
 package christmas.domain;
 
 import christmas.util.ConverterUtil;
+import christmas.view.OutputConstants;
 import java.util.regex.Pattern;
 
 public class Buyer {
@@ -22,10 +23,10 @@ public class Buyer {
 
     private void validateDate(String visitDate) {
         if (isNotDigit(visitDate)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(OutputConstants.VISIT_DATE_INPUT_ERROR_MESSAGE);
         }
         if (isNotDateNumber(visitDate)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(OutputConstants.VISIT_DATE_INPUT_ERROR_MESSAGE);
         }
     }
 
