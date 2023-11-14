@@ -20,7 +20,7 @@ public class EventGiftTest {
     @ParameterizedTest
     @ValueSource(ints = {5000, 8000, 9000})
     void 이벤트_선물이_별일때_테스트(int totalBenefitAmount) {
-        String gift = eventGift.eventGift(totalBenefitAmount);
+        String gift = eventGift.getEventGift(totalBenefitAmount);
         assertThat(gift).isEqualTo("별");
     }
 
@@ -28,7 +28,7 @@ public class EventGiftTest {
     @ParameterizedTest
     @ValueSource(ints = {10000, 15000, 19000})
     void 이벤트_선물이_트리일때_테스트(int totalBenefitAmount) {
-        String gift = eventGift.eventGift(totalBenefitAmount);
+        String gift = eventGift.getEventGift(totalBenefitAmount);
         assertThat(gift).isEqualTo("트리");
     }
 
@@ -36,7 +36,7 @@ public class EventGiftTest {
     @ParameterizedTest
     @ValueSource(ints = {20000, 28000, 39000})
     void 이벤트_선물이_산타일때_테스트(int totalBenefitAmount) {
-        String gift = eventGift.eventGift(totalBenefitAmount);
+        String gift = eventGift.getEventGift(totalBenefitAmount);
         assertThat(gift).isEqualTo("산타");
     }
 
@@ -44,7 +44,7 @@ public class EventGiftTest {
     @ParameterizedTest
     @ValueSource(ints = {1000, 2000, 4000})
     void 이벤트_선물을_못받았을때_테스트(int totalBenefitAmount) {
-        String gift = eventGift.eventGift(totalBenefitAmount);
+        String gift = eventGift.getEventGift(totalBenefitAmount);
         assertThat(gift).isEqualTo("없음");
     }
 
