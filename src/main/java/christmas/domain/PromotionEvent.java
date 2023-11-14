@@ -77,6 +77,6 @@ public class PromotionEvent {
     }
 
     public String eventGift() {
-        return eventGift.eventGift(totalBenefitAmount());
+        return eventGift.getEventGift(totalBenefitAmount());
     }
 }
