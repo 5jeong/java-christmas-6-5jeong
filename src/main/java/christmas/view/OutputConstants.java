@@ -23,4 +23,7 @@ public class OutputConstants {
     public static final int ZERO_AMOUNT = 0;
     public static final String NO_BENEFIT_MESSAGE = "없음";
     public static final String SERVICE_MENU = "샴페인 1개";
+
+    private OutputConstants(){
+    }
 }
