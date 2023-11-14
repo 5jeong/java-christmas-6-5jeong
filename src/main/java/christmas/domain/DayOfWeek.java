@@ -16,7 +16,4 @@ public enum DayOfWeek {
     public boolean isWeekend() {
         return this == FRIDAY || this == SATURDAY;
     }
-    public boolean isSpecialDay(){
-        return this == SUNDAY;
-    }
 }
