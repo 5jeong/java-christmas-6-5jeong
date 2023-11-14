@@ -1,8 +1,10 @@
 package christmas.domain;
 
+import christmas.view.OutputConstants;
 import java.util.stream.IntStream;
 
 public class PromotionEvent {
+    private static final int MINIMUM_APPLY_EVENT_AMOUNT = 10000;
 
     private final ChristmasDiscount christmasDiscount;
     private final WeekdayDiscount weekdayDiscount;
@@ -25,17 +27,28 @@ public class PromotionEvent {
         this.eventGift = new EventGift();
     }
 
+    private boolean isPromotionEvent() {
+        int totalOrderAmount = seller.totalOrderAmount();
+        return totalOrderAmount >= MINIMUM_APPLY_EVENT_AMOUNT;
+    }
+
     public int totalBenefitAmount() {
-        return totalDiscountAmount() + applyServiceBenefit();
+        if (isPromotionEvent()) {
+            return totalDiscountAmount() + applyServiceBenefit();
+        }
+        return OutputConstants.ZERO_AMOUNT;
     }
 
     public int totalDiscountAmount() {
-        return IntStream.of(
-                applyChristmasDiscount(),
-                applyWeekdayDiscount(),
-                applyWeekendDiscount(),
-                applySpecialDiscount()
-        ).sum();
+        if (isPromotionEvent()) {
+            return IntStream.of(
+                    applyChristmasDiscount(),
+                    applyWeekdayDiscount(),
+                    applyWeekendDiscount(),
+                    applySpecialDiscount()
+            ).sum();
+        }
+        return OutputConstants.ZERO_AMOUNT;
     }
 
     public int expectPaymentAmount() {
