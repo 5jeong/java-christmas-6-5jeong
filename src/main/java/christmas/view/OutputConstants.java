@@ -4,6 +4,7 @@ public class OutputConstants {
     public static final String START_EVENT_MESSAGE = "안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.";
     public static final String ORDER_MENU = "%s %d개";
     public static final String AMOUNT_MESSAGE = "%s원";
+    public static final String BENEFIT_AMOUNT_MESSAGE = "-%s원";
     public static final String CHRISTMAS_DISCOUNT = "크리스마스 디데이 할인: -%s원";
     public static final String WEEKDAY_DISCOUNT = "평일 할인: -%s원";
     public static final String WEEKEND_DISCOUNT = "주말 할인: -%s원";
@@ -19,8 +20,7 @@ public class OutputConstants {
     public static final String EVENT_GIFT_MESSAGE = "<12월 이벤트 배지>";
     public static final String VISIT_DATE_INPUT_ERROR_MESSAGE = "[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.";
     public static final String ORDER_INPUT_ERROR_MESSAGE = "[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.";
-    public static final int ZERO = 0;
+    public static final int ZERO_AMOUNT = 0;
     public static final String NO_BENEFIT_MESSAGE = "없음";
     public static final String SERVICE_MENU = "샴페인 1개";
-
 }
