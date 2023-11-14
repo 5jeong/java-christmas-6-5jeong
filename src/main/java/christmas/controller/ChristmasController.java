@@ -1,5 +1,6 @@
 package christmas.controller;
 
+import christmas.InputHandler.InputTemplate;
 import christmas.domain.Buyer;
 import christmas.domain.PromotionEvent;
 import christmas.domain.Seller;
@@ -41,25 +42,17 @@ public class ChristmasController {
 
     private Buyer generateBuyer() {
         outputView.startEventMessageOutput();
-        while (true) {
-            try {
-                String visitDate = inputView.expectedVisitDateInput();
-                return new Buyer(visitDate);
-            } catch (IllegalArgumentException e) {
-                System.out.println(OutputConstants.VISIT_DATE_INPUT_ERROR_MESSAGE);
-            }
-        }
+        return InputTemplate.execute(() -> {
+            String visitDate = inputView.expectedVisitDateInput();
+            return new Buyer(visitDate);
+        });
     }
 
     private Seller generateSeller() {
-        while (true) {
-            try {
-                String orderMenuAndCount = inputView.orderMenuAndCountInput();
-                return new Seller(orderMenuAndCount);
-            } catch (IllegalArgumentException | ArrayIndexOutOfBoundsException e) {
-                System.out.println(OutputConstants.ORDER_INPUT_ERROR_MESSAGE);
-            }
-        }
+        return InputTemplate.execute(() -> {
+            String orderMenuAndCount = inputView.orderMenuAndCountInput();
+            return new Seller(orderMenuAndCount);
+        });
     }
 
     private PromotionEvent generatePromotionEvent(Buyer buyer, Seller seller) {
@@ -79,7 +72,7 @@ public class ChristmasController {
     }
 
     private void displayServiceMenuMessage(PromotionEvent promotionEvent) {
-        outputView.serviceMenuMessageOutput(promotionEvent.totalBenefitAmount());
+        outputView.serviceMenuMessageOutput(promotionEvent.applyServiceBenefit());
     }
 
     private void displayBenefitHistory(PromotionEvent promotionEvent) {
@@ -87,7 +80,7 @@ public class ChristmasController {
     }
 
     private void displayBenefits(PromotionEvent promotionEvent) {
-        if (promotionEvent.totalBenefitAmount() != 0) {
+        if (promotionEvent.totalBenefitAmount() != OutputConstants.ZERO_AMOUNT) {
             outputView.christmasDiscountOutput(promotionEvent.applyChristmasDiscount());
             outputView.weekdayDiscountOutput(promotionEvent.applyWeekdayDiscount());
             outputView.weekendDiscountOutput(promotionEvent.applyWeekendDiscount());
