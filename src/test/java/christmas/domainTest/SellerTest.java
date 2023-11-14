@@ -1,6 +1,7 @@
 package christmas.domainTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import christmas.domain.Seller;
@@ -10,6 +11,13 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 public class SellerTest {
+
+    @DisplayName("주문내역을 올바르게 입력한 경우 테스트")
+    @ParameterizedTest
+    @ValueSource(strings = {"타파스-1,제로콜라-1", "티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1"})
+    void 주문내역이_올바른경우_예외테스트(String orderHistoty) {
+        assertThatCode(() -> new Seller(orderHistoty)).doesNotThrowAnyException();
+    }
 
     @DisplayName("중복된 메뉴가 있을때 예외가 발생한다.")
     @ParameterizedTest
