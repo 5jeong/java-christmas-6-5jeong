@@ -1,6 +1,5 @@
 package christmas.view;
 
-import java.sql.SQLOutput;
 import java.text.DecimalFormat;
 import java.util.Map;
 
@@ -29,10 +28,10 @@ public class OutputView {
         System.out.println(String.format(OutputConstants.AMOUNT_MESSAGE, formatter.format(totalOrderAmount)));
     }
 
-    public void serviceMenuMessageOutput(int totalBenefitAmount) {
+    public void serviceMenuMessageOutput(int serviceBenefit) {
         System.out.println();
         System.out.println(OutputConstants.SERVICE_MENU_MESSAGE);
-        if (totalBenefitAmount != OutputConstants.ZERO) {
+        if (serviceBenefit != OutputConstants.ZERO_AMOUNT) {
             System.out.println(OutputConstants.SERVICE_MENU);
             return;
         }
@@ -42,41 +41,41 @@ public class OutputView {
     public void benefitHistoryOutput(int totalBenefitAmount) {
         System.out.println();
         System.out.println(OutputConstants.BENEFIT_MESSAGE);
-        if (totalBenefitAmount == OutputConstants.ZERO) {
+        if (totalBenefitAmount == OutputConstants.ZERO_AMOUNT) {
             System.out.println(OutputConstants.NO_BENEFIT_MESSAGE);
         }
     }
 
     public void christmasDiscountOutput(int christmasDiscountAmount) {
-        if (christmasDiscountAmount != OutputConstants.ZERO) {
+        if (christmasDiscountAmount != OutputConstants.ZERO_AMOUNT) {
             System.out.println(
                     String.format(OutputConstants.CHRISTMAS_DISCOUNT, formatter.format(christmasDiscountAmount)));
         }
     }
 
     public void weekdayDiscountOutput(int weekdayDiscountAmount) {
-        if (weekdayDiscountAmount != OutputConstants.ZERO) {
+        if (weekdayDiscountAmount != OutputConstants.ZERO_AMOUNT) {
             System.out.println(
                     String.format(OutputConstants.WEEKDAY_DISCOUNT, formatter.format(weekdayDiscountAmount)));
         }
     }
 
     public void weekendDiscountOutput(int weekendDiscountAmount) {
-        if (weekendDiscountAmount != OutputConstants.ZERO) {
+        if (weekendDiscountAmount != OutputConstants.ZERO_AMOUNT) {
             System.out.println(
                     String.format(OutputConstants.WEEKEND_DISCOUNT, formatter.format(weekendDiscountAmount)));
         }
     }
 
     public void specialDiscountOutput(int specialDiscountAmount) {
-        if (specialDiscountAmount != OutputConstants.ZERO) {
+        if (specialDiscountAmount != OutputConstants.ZERO_AMOUNT) {
             System.out.println(
                     String.format(OutputConstants.SPECIAL_DISCOUNT, formatter.format(specialDiscountAmount)));
         }
     }
 
     public void serviceBenefitOutput(int serviceBenefitAmount) {
-        if (serviceBenefitAmount != OutputConstants.ZERO) {
+        if (serviceBenefitAmount != OutputConstants.ZERO_AMOUNT) {
             System.out.println(String.format(OutputConstants.SERVICE_BENEFIT, formatter.format(serviceBenefitAmount)));
         }
     }
@@ -84,12 +83,12 @@ public class OutputView {
     public void totalBenefitMessageOutput(int totalBenefitAmount) {
         System.out.println();
         System.out.println(OutputConstants.TOTAL_BENEFIT_MESSAGE);
-        if (totalBenefitAmount != OutputConstants.ZERO) {
+        if (totalBenefitAmount != OutputConstants.ZERO_AMOUNT) {
             System.out.println(
-                    String.format("-" + OutputConstants.AMOUNT_MESSAGE, formatter.format(totalBenefitAmount)));
+                    String.format(OutputConstants.BENEFIT_AMOUNT_MESSAGE, formatter.format(totalBenefitAmount)));
             return;
         }
-        System.out.println(String.format(OutputConstants.AMOUNT_MESSAGE, OutputConstants.ZERO));
+        System.out.println(String.format(OutputConstants.AMOUNT_MESSAGE, OutputConstants.ZERO_AMOUNT));
     }
 
     public void expectPaymentAmountOutput(int expectPaymentAmount) {
