@@ -7,6 +7,7 @@ import christmas.domain.Seller;
 import christmas.view.InputView;
 import christmas.view.OutputConstants;
 import christmas.view.OutputView;
+import java.util.Map;
 
 public class ChristmasController {
     private final InputView inputView;
@@ -26,18 +27,18 @@ public class ChristmasController {
     }
 
     private void confirmOrderStep(Buyer buyer, Seller seller) {
-        displayEventPreview(buyer);
-        displayOrderMenu(seller);
-        displayTotalOrderAmount(seller);
+        displayEventPreview(buyer.getVisitDay());
+        displayOrderMenu(seller.getOrderHistory());
+        displayTotalOrderAmount(seller.totalOrderAmount());
     }
 
     private void applyDiscountStep(PromotionEvent promotionEvent) {
-        displayServiceMenuMessage(promotionEvent);
-        displayBenefitHistory(promotionEvent);
+        displayServiceMenuMessage(promotionEvent.applyServiceBenefit());
+        displayBenefitHistory(promotionEvent.totalBenefitAmount());
         displayBenefits(promotionEvent);
-        displayTotalBenefitMessage(promotionEvent);
-        displayExpectPaymentAmount(promotionEvent);
-        displayEventGiftMessage(promotionEvent);
+        displayTotalBenefitMessage(promotionEvent.totalBenefitAmount());
+        displayExpectPaymentAmount(promotionEvent.expectPaymentAmount());
+        displayEventGiftMessage(promotionEvent.eventGift());
     }
 
     private Buyer generateBuyer() {
@@ -59,24 +60,24 @@ public class ChristmasController {
         return new PromotionEvent(buyer, seller);
     }
 
-    private void displayEventPreview(Buyer buyer) {
-        outputView.eventPreviewMessageOutput(buyer.getVisitDay());
+    private void displayEventPreview(int visitDay) {
+        outputView.eventPreviewMessageOutput(visitDay);
     }
 
-    private void displayOrderMenu(Seller seller) {
-        outputView.orderMenuOutput(seller.getOrderHistory());
+    private void displayOrderMenu(Map<String, Integer> orderHistory) {
+        outputView.orderMenuOutput(orderHistory);
     }
 
-    private void displayTotalOrderAmount(Seller seller) {
-        outputView.totalOrderAmountOutput(seller.totalOrderAmount());
+    private void displayTotalOrderAmount(int totalOrderAmount) {
+        outputView.totalOrderAmountOutput(totalOrderAmount);
     }
 
-    private void displayServiceMenuMessage(PromotionEvent promotionEvent) {
-        outputView.serviceMenuMessageOutput(promotionEvent.applyServiceBenefit());
+    private void displayServiceMenuMessage(int serviceBenefit) {
+        outputView.serviceMenuMessageOutput(serviceBenefit);
     }
 
-    private void displayBenefitHistory(PromotionEvent promotionEvent) {
-        outputView.benefitHistoryOutput(promotionEvent.totalBenefitAmount());
+    private void displayBenefitHistory(int totalBenefitAmount) {
+        outputView.benefitHistoryOutput(totalBenefitAmount);
     }
 
     private void displayBenefits(PromotionEvent promotionEvent) {
@@ -89,16 +90,15 @@ public class ChristmasController {
         }
     }
 
-    private void displayTotalBenefitMessage(PromotionEvent promotionEvent) {
-        outputView.totalBenefitMessageOutput(promotionEvent.totalBenefitAmount());
+    private void displayTotalBenefitMessage(int totalBenefitAmount) {
+        outputView.totalBenefitMessageOutput(totalBenefitAmount);
     }
 
-    private void displayExpectPaymentAmount(PromotionEvent promotionEvent) {
-        int expectPaymentAmount = promotionEvent.expectPaymentAmount();
+    private void displayExpectPaymentAmount(int expectPaymentAmount) {
         outputView.expectPaymentAmountOutput(expectPaymentAmount);
     }
 
-    private void displayEventGiftMessage(PromotionEvent promotionEvent) {
-        outputView.eventGiftMessageOutput(promotionEvent.eventGift());
+    private void displayEventGiftMessage(String eventGift) {
+        outputView.eventGiftMessageOutput(eventGift);
     }
 }
