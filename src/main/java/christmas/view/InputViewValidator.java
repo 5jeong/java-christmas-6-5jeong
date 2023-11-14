@@ -7,7 +7,7 @@ public class InputViewValidator {
 
     public void validateMenuFormat(String orderMenuAndCount){
         if(!Pattern.compile(MENU_AND_COUNT_REGEX).matcher(orderMenuAndCount).matches()){
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(OutputConstants.ORDER_INPUT_ERROR_MESSAGE);
         }
     }
 }
